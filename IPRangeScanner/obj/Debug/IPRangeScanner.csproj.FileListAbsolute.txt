@@ -1,1 +1,9 @@
 c:\users\rise\documents\visual studio 2013\Projects\IPRangeScanner\IPRangeScanner\bin\Debug\IPRangeScanner.exe.config
+c:\users\rise\documents\visual studio 2013\Projects\IPRangeScanner\IPRangeScanner\bin\Debug\IPRangeScanner.exe
+c:\users\rise\documents\visual studio 2013\Projects\IPRangeScanner\IPRangeScanner\bin\Debug\IPRangeScanner.pdb
+c:\users\rise\documents\visual studio 2013\Projects\IPRangeScanner\IPRangeScanner\obj\Debug\IPRangeScanner.csprojResolveAssemblyReference.cache
+c:\users\rise\documents\visual studio 2013\Projects\IPRangeScanner\IPRangeScanner\obj\Debug\IPRangeScanner.Form1.resources
+c:\users\rise\documents\visual studio 2013\Projects\IPRangeScanner\IPRangeScanner\obj\Debug\IPRangeScanner.Properties.Resources.resources
+c:\users\rise\documents\visual studio 2013\Projects\IPRangeScanner\IPRangeScanner\obj\Debug\IPRangeScanner.csproj.GenerateResource.Cache
+c:\users\rise\documents\visual studio 2013\Projects\IPRangeScanner\IPRangeScanner\obj\Debug\IPRangeScanner.exe
+c:\users\rise\documents\visual studio 2013\Projects\IPRangeScanner\IPRangeScanner\obj\Debug\IPRangeScanner.pdb
