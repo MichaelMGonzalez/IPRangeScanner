@@ -5,7 +5,12 @@ using System.Linq;
 using System.Net;
 using System.Text;
 using System.Threading.Tasks;
-
+/**
+ * Filename: IPRangeScanner.cs
+ * Author: Michael Gonzalez
+ * Description: This class scans a definable range of IP addresses and builds
+ *              a table of accessable IPs within the range.
+ */       
 namespace IPRangeScanner
 {
     class IPRangeScanner
