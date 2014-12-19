@@ -46,6 +46,7 @@ namespace IPRangeScanner
                                                         (uint)fromIP3.Value);
             scanner.setStartIP(start);
             scanner.setEndIP(end);
+            MessageBox.Show(scanner.ToString());
             Debug.Write(scanner.ToString() + "\n");
         }
 
@@ -56,7 +57,7 @@ namespace IPRangeScanner
 
         private void scanButton_Click(object sender, EventArgs e)
         {
-            scanner.traverseAddressRange();
+            scanner.buildIPTable();
         }
 
         

@@ -45,7 +45,7 @@
             this.flowLayoutPanel4 = new System.Windows.Forms.FlowLayoutPanel();
             this.scanButton = new System.Windows.Forms.Button();
             this.testButton = new System.Windows.Forms.Button();
-            this.printDialog1 = new System.Windows.Forms.PrintDialog();
+            this.saveFileDialog1 = new System.Windows.Forms.SaveFileDialog();
             this.tableLayoutPanel1.SuspendLayout();
             this.flowLayoutPanel3.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.toIP3)).BeginInit();
@@ -261,10 +261,6 @@
             this.testButton.UseVisualStyleBackColor = true;
             this.testButton.Click += new System.EventHandler(this.testButton_Click);
             // 
-            // printDialog1
-            // 
-            this.printDialog1.UseEXDialog = true;
-            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -310,7 +306,7 @@
         private System.Windows.Forms.Button testButton;
         public System.Windows.Forms.NumericUpDown fromIP3;
         public System.Windows.Forms.NumericUpDown fromIP0;
-        private System.Windows.Forms.PrintDialog printDialog1;
+        private System.Windows.Forms.SaveFileDialog saveFileDialog1;
     }
 }
 

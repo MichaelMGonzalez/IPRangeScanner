@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.IO;
 using System.Linq;
 using System.Net;
 using System.Text;
@@ -18,6 +19,8 @@ namespace IPRangeScanner
         private const int ONEBYTE = 8;
         private const int TWOBYTE = 16;
         private const int THREEBYTE = 24;
+        private Queue<string> htmlTable = new Queue<string>();
+        private Queue<string> ipTable = new Queue<string>();
         public IPAddress ip, startRange, endRange;
         public IPRangeScanner( Int64 startAddress, Int64 endAddress )
         {
@@ -44,17 +47,19 @@ namespace IPRangeScanner
         {
             endRange = new IPAddress(address);
         }
+        
         public override string ToString()
         {
             return (startRange + " to " + endRange);
         }
         // This function itterates through the address ranage
-        public void traverseAddressRange()
+        public void buildIPTable()
         {
             Byte[] startIP = startRange.GetAddressBytes();
             Byte[] endIP = endRange.GetAddressBytes();
             Byte[] originalEndIP = endRange.GetAddressBytes();
             IPAddress currIP;
+            
             long currAddress;
             for (int i = startIP[0]; i <= endIP[0]; i++ ) 
             { // Iterate through i.j.k.l 
@@ -79,6 +84,7 @@ namespace IPRangeScanner
                             currAddress = generateIPAddress((uint)l, (uint)k, 
                                                             (uint)j, (uint)i);
                             currIP = new IPAddress(currAddress);
+                            readHTML(currIP);
                             Debug.Write(currIP + "\n");
                         }
                         startIP[3] = 0; // When any level of the loop reaches 
@@ -87,8 +93,52 @@ namespace IPRangeScanner
                 }                       // entire address range
                 startIP[1] = 0;
             }
-            startIP[0] = 0;
-                
+            startIP[0] = 0;           
+        }
+
+        // This method tries to access and read index.html at a given 
+        // IP Address's root directory
+        private void readHTML(IPAddress address)
+        {
+            WebClient web = new WebClient();
+            Uri currURI;
+            string currString;
+            currURI = new Uri("http://" + address.ToString() + "/index.html");
+            try
+            {
+                currString = web.DownloadString(currURI);
+                ipTable.Enqueue(string.Copy(address.ToString()));
+                htmlTable.Enqueue(string.Copy(currString));
+            }
+            catch (WebException)
+            {
+               
+            }
+            
+        }
+
+        // This method takes writes both the IP Table and the HTML table to a
+        // text file
+        private void writeTable( string filename )
+        {
+            StringBuilder sb = new StringBuilder();
+
+            sb.AppendLine("IPs with accessable Indexes with Index:");
+            sb.AppendLine("= = = = = =");
+            while( ipTable.Count > 0 )
+            {
+                sb.AppendLine(ipTable.Dequeue());
+                sb.AppendLine("^-+-+-+-^");
+                sb.AppendLine(htmlTable.Dequeue());
+                sb.AppendLine("[-+-+-+-]");
+                sb.AppendLine();
+                sb.AppendLine();
+            }
+            using (StreamWriter outfile = new StreamWriter(filename))
+            {
+                outfile.Write(sb.ToString());
+            }
+            
         }
     }
 }
