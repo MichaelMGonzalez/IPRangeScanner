@@ -16,20 +16,26 @@ namespace IPRangeScanner
 {
     class IPRangeScanner
     {
+        // Constants
         private const int ONEBYTE = 8;
         private const int TWOBYTE = 16;
         private const int THREEBYTE = 24;
+
         public int timeout = 1500;
         public int Length = 0;
         public delegate void Del(int l);
         public delegate void IPDel(IPAddress ip);
-        private Queue<string> htmlTable = new Queue<string>();
-        private Queue<string> ipTable = new Queue<string>();
-        public IPAddress ip, startRange, endRange;
+        /* The HTML table contains any HTML read from buildIPTable */
+        public Queue<string> htmlTable = new Queue<string>();
+        /* The IP table contains any valid IPs read from buildIPTable */
+        public Queue<string> ipTable = new Queue<string>();
+        public string tempfile;
+        private IPAddress ip, startRange, endRange;
         public IPRangeScanner( Int64 startAddress, Int64 endAddress )
         {
             startRange = new IPAddress(startAddress);
             endRange = new IPAddress(endAddress);
+            tempfile = null;
         }
         // This function generates an IPv4 value in little-endian to be used by
         // the IPAddress constructor
@@ -43,15 +49,7 @@ namespace IPRangeScanner
             address |= (byteZero << THREEBYTE);
             return address;
         }
-        public void setStartIP( long address )
-        {
-            startRange = new IPAddress(address);
-        }
-        public void setEndIP(long address)
-        {
-            endRange = new IPAddress(address);
-            setRangeLength();
-        }
+        
         // This updates the length variable. The length is the distance between
         // endIP and startIP inclusive.
         private void setRangeLength()
@@ -66,13 +64,13 @@ namespace IPRangeScanner
             {
                 result += (int)((endIP[b] - startIP[b]) * Math.Pow(255, b));
             }
-            Length = result;
+            Length = ++result;
         }
         public override string ToString()
         {
             return (startRange + " to " + endRange);
         }
-        // This function itterates through the address ranage
+        // This function itterates through the address range
         public async Task buildIPTableAsync()
         {
             await buildIPTableAsync(null, null);
@@ -164,6 +162,9 @@ namespace IPRangeScanner
                 response.Close();
                 ipTable.Enqueue(string.Copy(address.ToString()));
                 htmlTable.Enqueue(string.Copy(currString));
+                // If tempfile isn't null, then append the current IP to it
+                if (tempfile != null) 
+                    IPRangeWriter.appendTempIPTable(address, tempfile);
             }
             catch (WebException)
             {
@@ -171,51 +172,16 @@ namespace IPRangeScanner
             }
             
         }
-
-        // This method takes writes both the IP Table and the HTML table to a
-        // text file
-        public void writeIPTable( string filename )
+        public void setStartIP(long address)
         {
-            Debug.Write(filename + "\n");
-            StringBuilder sb = new StringBuilder();
-
-            sb.AppendLine("IP Range Scanner Results");
-            sb.AppendLine("Range: " + this.ToString());
-            sb.AppendLine("HTTP Accessable IPs:");
-            sb.AppendLine("= = = = = = = =");
-            string currIP;
-            for (int i = 0, length = ipTable.Count; i < length; i++ )
-            {
-                currIP = ipTable.Dequeue();
-                sb.AppendLine(currIP);
-                ipTable.Enqueue(currIP);
-            }
-            sb.AppendLine("= = = = = = = =");
-            using (StreamWriter outfile = new StreamWriter(filename))
-            {
-                outfile.Write(sb.ToString());
-            }
-            
+            startRange = new IPAddress(address);
         }
-        public void writeHTMLTable( string filename )
+        public void setEndIP(long address)
         {
-            StreamWriter outfile;
-            string pathname = filename;
-            int dotIndex = pathname.LastIndexOf('.');
-            if( dotIndex > 0)
-            {
-                pathname = pathname.Substring(0, dotIndex);
-            }
-            pathname += "_HTML/";
-            Directory.CreateDirectory(pathname);
-            while( ipTable.Count > 0 )
-            {
-                string newfile = pathname + ipTable.Dequeue() + ".html";
-                using (outfile = new StreamWriter(newfile))
-                {
-                    outfile.Write(htmlTable.Dequeue());
-                }
-            }
+            endRange = new IPAddress(address);
+            setRangeLength();
         }
+
+       
     }
 }

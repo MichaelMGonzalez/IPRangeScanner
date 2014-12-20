@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainGUI));
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.flowLayoutPanel3 = new System.Windows.Forms.FlowLayoutPanel();
             this.currentIPLabel = new System.Windows.Forms.Label();
@@ -46,6 +47,9 @@
             this.label1 = new System.Windows.Forms.Label();
             this.flowLayoutPanel4 = new System.Windows.Forms.FlowLayoutPanel();
             this.scanButton = new System.Windows.Forms.Button();
+            this.numberOfIPs = new System.Windows.Forms.Label();
+            this.timeoutNumberUpDown = new System.Windows.Forms.NumericUpDown();
+            this.timeoutLabel = new System.Windows.Forms.Label();
             this.saveFileDialog1 = new System.Windows.Forms.SaveFileDialog();
             this.tableLayoutPanel1.SuspendLayout();
             this.flowLayoutPanel3.SuspendLayout();
@@ -60,6 +64,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.fromIP1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.fromIP0)).BeginInit();
             this.flowLayoutPanel4.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.timeoutNumberUpDown)).BeginInit();
             this.SuspendLayout();
             // 
             // tableLayoutPanel1
@@ -272,12 +277,15 @@
             // flowLayoutPanel4
             // 
             this.flowLayoutPanel4.Controls.Add(this.scanButton);
-            this.flowLayoutPanel4.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.flowLayoutPanel4.Controls.Add(this.numberOfIPs);
+            this.flowLayoutPanel4.Controls.Add(this.timeoutNumberUpDown);
+            this.flowLayoutPanel4.Controls.Add(this.timeoutLabel);
             this.flowLayoutPanel4.FlowDirection = System.Windows.Forms.FlowDirection.TopDown;
             this.flowLayoutPanel4.Location = new System.Drawing.Point(3, 198);
             this.flowLayoutPanel4.Name = "flowLayoutPanel4";
             this.flowLayoutPanel4.Size = new System.Drawing.Size(278, 60);
             this.flowLayoutPanel4.TabIndex = 3;
+            this.flowLayoutPanel4.Paint += new System.Windows.Forms.PaintEventHandler(this.flowLayoutPanel4_Paint);
             // 
             // scanButton
             // 
@@ -289,6 +297,43 @@
             this.scanButton.UseVisualStyleBackColor = true;
             this.scanButton.Click += new System.EventHandler(this.scanButton_Click);
             // 
+            // numberOfIPs
+            // 
+            this.numberOfIPs.AutoSize = true;
+            this.numberOfIPs.Location = new System.Drawing.Point(3, 29);
+            this.numberOfIPs.Name = "numberOfIPs";
+            this.numberOfIPs.Size = new System.Drawing.Size(58, 13);
+            this.numberOfIPs.TabIndex = 5;
+            this.numberOfIPs.Text = "IPs Found:";
+            // 
+            // timeoutNumberUpDown
+            // 
+            this.timeoutNumberUpDown.Location = new System.Drawing.Point(84, 3);
+            this.timeoutNumberUpDown.Maximum = new decimal(new int[] {
+            1000000,
+            0,
+            0,
+            0});
+            this.timeoutNumberUpDown.Name = "timeoutNumberUpDown";
+            this.timeoutNumberUpDown.Size = new System.Drawing.Size(120, 20);
+            this.timeoutNumberUpDown.TabIndex = 6;
+            this.timeoutNumberUpDown.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.timeoutNumberUpDown.Value = new decimal(new int[] {
+            1500,
+            0,
+            0,
+            0});
+            this.timeoutNumberUpDown.ValueChanged += new System.EventHandler(this.timeoutNumberUpDown_ValueChanged);
+            // 
+            // timeoutLabel
+            // 
+            this.timeoutLabel.AutoSize = true;
+            this.timeoutLabel.Location = new System.Drawing.Point(84, 26);
+            this.timeoutLabel.Name = "timeoutLabel";
+            this.timeoutLabel.Size = new System.Drawing.Size(113, 13);
+            this.timeoutLabel.TabIndex = 7;
+            this.timeoutLabel.Text = "-- Timeout Threshold --";
+            // 
             // saveFileDialog1
             // 
             this.saveFileDialog1.Filter = "Text files (*.txt)|*.txt|All files (*.*)|*.*";
@@ -299,10 +344,12 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(284, 261);
             this.Controls.Add(this.tableLayoutPanel1);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MaximumSize = new System.Drawing.Size(300, 300);
             this.MinimumSize = new System.Drawing.Size(300, 300);
             this.Name = "MainGUI";
             this.Text = "IPRangeScanner";
+            this.Load += new System.EventHandler(this.MainGUI_Load);
             this.tableLayoutPanel1.ResumeLayout(false);
             this.flowLayoutPanel3.ResumeLayout(false);
             this.flowLayoutPanel3.PerformLayout();
@@ -319,6 +366,8 @@
             ((System.ComponentModel.ISupportInitialize)(this.fromIP1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.fromIP0)).EndInit();
             this.flowLayoutPanel4.ResumeLayout(false);
+            this.flowLayoutPanel4.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.timeoutNumberUpDown)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -339,7 +388,6 @@
         private System.Windows.Forms.NumericUpDown fromIP2;
         private System.Windows.Forms.NumericUpDown fromIP1;
         private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.FlowLayoutPanel flowLayoutPanel4;
         private System.Windows.Forms.Button scanButton;
         public System.Windows.Forms.NumericUpDown fromIP3;
         public System.Windows.Forms.NumericUpDown fromIP0;
@@ -348,6 +396,10 @@
         private System.Windows.Forms.NumericUpDown toIP3;
         private System.Windows.Forms.NumericUpDown toIP2;
         private System.Windows.Forms.Label currentIPLabel;
+        private System.Windows.Forms.FlowLayoutPanel flowLayoutPanel4;
+        private System.Windows.Forms.Label numberOfIPs;
+        private System.Windows.Forms.NumericUpDown timeoutNumberUpDown;
+        private System.Windows.Forms.Label timeoutLabel;
     }
 }
 

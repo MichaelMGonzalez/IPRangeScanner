@@ -72,24 +72,22 @@ namespace IPRangeScanner
         }
         private async void scanButton_Click(object sender, EventArgs e)
         {
-            if(saveFileDialog1.ShowDialog() == DialogResult.OK)
+            buildScanList();
+            if(scanner.Length > 0 && saveFileDialog1.ShowDialog() == DialogResult.OK)
             {
-                buildScanList();
+                IPRangeWriter writer = new IPRangeWriter(scanner);
+                writer.createTempFile(saveFileDialog1.FileName);
                 Task scan = scanner.buildIPTableAsync(updateProgressBar, updateIPLabel);
                 await scan;
-                scanner.writeIPTable(saveFileDialog1.FileName);
-                if (scanner.Length > 0)
-                {
-                    progressBar1.Maximum = scanner.Length + 1;
-                    scanner.writeHTMLTable(saveFileDialog1.FileName);
-                    updateProgressBar(0);
-                    currentIPLabel.Text = "Current IP: N/A";
-                    currentIPLabel.Refresh();
-                    MessageBox.Show("Scan complete!");
-                }
-                else
-                    MessageBox.Show("Invalid Range");
+                writer.writeIPTable(saveFileDialog1.FileName);
+                writer.writeHTMLTable(saveFileDialog1.FileName);      
+                updateProgressBar(0);
+                currentIPLabel.Text = "Current IP: N/A";
+                currentIPLabel.Refresh();
+                MessageBox.Show("Scan complete!\nNumber of IPs Found: " + scanner.ipTable.Count);
             }
+            else if(scanner.Length <= 0)
+                MessageBox.Show("Invalid Range");
             
         }
         private void updateProgressBar( int value )
@@ -100,6 +98,7 @@ namespace IPRangeScanner
         {
             currentIPLabel.Text = "Current IP: " + ip.ToString();
             currentIPLabel.Refresh();
+            numberOfIPs.Text = "IPs Found: " + scanner.ipTable.Count;
         }
         private void buildScanList()
         {
@@ -113,6 +112,7 @@ namespace IPRangeScanner
                                                         (uint)fromIP3.Value);
             scanner.setStartIP(start);
             scanner.setEndIP(end);
+            progressBar1.Maximum = scanner.Length + 1;      
             Debug.Write(scanner.ToString() + "\n");
         }
         private void fromIP3_ValueChanged(object sender, EventArgs e)
@@ -133,6 +133,23 @@ namespace IPRangeScanner
         {
             toIP0.Value = fromIP0.Value;
         }
+
+        private void flowLayoutPanel4_Paint(object sender, PaintEventArgs e)
+        {
+
+        }
+
+        private void timeoutNumberUpDown_ValueChanged(object sender, EventArgs e)
+        {
+            scanner.timeout = (int)timeoutNumberUpDown.Value;
+        }
+
+        private void MainGUI_Load(object sender, EventArgs e)
+        {
+
+        }
+
+
 
 
         
