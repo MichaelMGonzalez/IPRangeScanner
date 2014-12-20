@@ -140,7 +140,7 @@ namespace IPRangeScanner
         // IP Address's root directory
         private void readHTML(IPAddress address)
         {
-            Uri currURI = new Uri("http://" + address.ToString() + "/index.html");
+            Uri currURI = new Uri("http://" + address.ToString() );
             WebRequest request = WebRequest.Create(currURI);
             request.Timeout = timeout;
             string currString;
