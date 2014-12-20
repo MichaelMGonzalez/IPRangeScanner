@@ -1,6 +1,6 @@
 ﻿namespace IPRangeScanner
 {
-    partial class Form1
+    partial class MainGUI
     {
         /// <summary>
         /// Required designer variable.
@@ -30,12 +30,14 @@
         {
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.flowLayoutPanel3 = new System.Windows.Forms.FlowLayoutPanel();
+            this.currentIPLabel = new System.Windows.Forms.Label();
+            this.progressBar1 = new System.Windows.Forms.ProgressBar();
+            this.flowLayoutPanel2 = new System.Windows.Forms.FlowLayoutPanel();
             this.toIP3 = new System.Windows.Forms.NumericUpDown();
             this.toIP2 = new System.Windows.Forms.NumericUpDown();
             this.toIP1 = new System.Windows.Forms.NumericUpDown();
             this.toIP0 = new System.Windows.Forms.NumericUpDown();
             this.label2 = new System.Windows.Forms.Label();
-            this.flowLayoutPanel2 = new System.Windows.Forms.FlowLayoutPanel();
             this.flowLayoutPanel1 = new System.Windows.Forms.FlowLayoutPanel();
             this.fromIP3 = new System.Windows.Forms.NumericUpDown();
             this.fromIP2 = new System.Windows.Forms.NumericUpDown();
@@ -44,10 +46,10 @@
             this.label1 = new System.Windows.Forms.Label();
             this.flowLayoutPanel4 = new System.Windows.Forms.FlowLayoutPanel();
             this.scanButton = new System.Windows.Forms.Button();
-            this.testButton = new System.Windows.Forms.Button();
             this.saveFileDialog1 = new System.Windows.Forms.SaveFileDialog();
             this.tableLayoutPanel1.SuspendLayout();
             this.flowLayoutPanel3.SuspendLayout();
+            this.flowLayoutPanel2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.toIP3)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.toIP2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.toIP1)).BeginInit();
@@ -83,16 +85,42 @@
             // 
             // flowLayoutPanel3
             // 
-            this.flowLayoutPanel3.Controls.Add(this.toIP3);
-            this.flowLayoutPanel3.Controls.Add(this.toIP2);
-            this.flowLayoutPanel3.Controls.Add(this.toIP1);
-            this.flowLayoutPanel3.Controls.Add(this.toIP0);
-            this.flowLayoutPanel3.Controls.Add(this.label2);
+            this.flowLayoutPanel3.Controls.Add(this.currentIPLabel);
+            this.flowLayoutPanel3.Controls.Add(this.progressBar1);
             this.flowLayoutPanel3.Dock = System.Windows.Forms.DockStyle.Fill;
             this.flowLayoutPanel3.Location = new System.Drawing.Point(3, 133);
             this.flowLayoutPanel3.Name = "flowLayoutPanel3";
             this.flowLayoutPanel3.Size = new System.Drawing.Size(278, 59);
             this.flowLayoutPanel3.TabIndex = 2;
+            // 
+            // currentIPLabel
+            // 
+            this.currentIPLabel.AutoSize = true;
+            this.currentIPLabel.Location = new System.Drawing.Point(3, 0);
+            this.currentIPLabel.Name = "currentIPLabel";
+            this.currentIPLabel.Size = new System.Drawing.Size(80, 13);
+            this.currentIPLabel.TabIndex = 1;
+            this.currentIPLabel.Text = "Current IP: N/A";
+            // 
+            // progressBar1
+            // 
+            this.progressBar1.Location = new System.Drawing.Point(3, 16);
+            this.progressBar1.Name = "progressBar1";
+            this.progressBar1.Size = new System.Drawing.Size(268, 23);
+            this.progressBar1.TabIndex = 0;
+            // 
+            // flowLayoutPanel2
+            // 
+            this.flowLayoutPanel2.Controls.Add(this.toIP3);
+            this.flowLayoutPanel2.Controls.Add(this.toIP2);
+            this.flowLayoutPanel2.Controls.Add(this.toIP1);
+            this.flowLayoutPanel2.Controls.Add(this.toIP0);
+            this.flowLayoutPanel2.Controls.Add(this.label2);
+            this.flowLayoutPanel2.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.flowLayoutPanel2.Location = new System.Drawing.Point(3, 68);
+            this.flowLayoutPanel2.Name = "flowLayoutPanel2";
+            this.flowLayoutPanel2.Size = new System.Drawing.Size(278, 59);
+            this.flowLayoutPanel2.TabIndex = 1;
             // 
             // toIP3
             // 
@@ -104,7 +132,8 @@
             0});
             this.toIP3.Name = "toIP3";
             this.toIP3.Size = new System.Drawing.Size(55, 20);
-            this.toIP3.TabIndex = 0;
+            this.toIP3.TabIndex = 1;
+            this.toIP3.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
             // toIP2
             // 
@@ -116,7 +145,8 @@
             0});
             this.toIP2.Name = "toIP2";
             this.toIP2.Size = new System.Drawing.Size(65, 20);
-            this.toIP2.TabIndex = 1;
+            this.toIP2.TabIndex = 2;
+            this.toIP2.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
             // toIP1
             // 
@@ -129,6 +159,8 @@
             this.toIP1.Name = "toIP1";
             this.toIP1.Size = new System.Drawing.Size(65, 20);
             this.toIP1.TabIndex = 2;
+            this.toIP1.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.toIP1.Enter += new System.EventHandler(this.toIP1_Enter);
             // 
             // toIP0
             // 
@@ -141,6 +173,8 @@
             this.toIP0.Name = "toIP0";
             this.toIP0.Size = new System.Drawing.Size(65, 20);
             this.toIP0.TabIndex = 3;
+            this.toIP0.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.toIP0.Enter += new System.EventHandler(this.toIP0_Enter);
             // 
             // label2
             // 
@@ -150,14 +184,7 @@
             this.label2.Size = new System.Drawing.Size(51, 13);
             this.label2.TabIndex = 4;
             this.label2.Text = "--End IP--";
-            // 
-            // flowLayoutPanel2
-            // 
-            this.flowLayoutPanel2.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.flowLayoutPanel2.Location = new System.Drawing.Point(3, 68);
-            this.flowLayoutPanel2.Name = "flowLayoutPanel2";
-            this.flowLayoutPanel2.Size = new System.Drawing.Size(278, 59);
-            this.flowLayoutPanel2.TabIndex = 1;
+            this.label2.TextAlign = System.Drawing.ContentAlignment.TopCenter;
             // 
             // flowLayoutPanel1
             // 
@@ -183,7 +210,9 @@
             this.fromIP3.Name = "fromIP3";
             this.fromIP3.Size = new System.Drawing.Size(55, 20);
             this.fromIP3.TabIndex = 0;
+            this.fromIP3.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.fromIP3.ValueChanged += new System.EventHandler(this.fromIP3_ValueChanged);
+            this.fromIP3.Enter += new System.EventHandler(this.fromIP3_Enter);
             // 
             // fromIP2
             // 
@@ -196,6 +225,9 @@
             this.fromIP2.Name = "fromIP2";
             this.fromIP2.Size = new System.Drawing.Size(65, 20);
             this.fromIP2.TabIndex = 1;
+            this.fromIP2.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.fromIP2.ValueChanged += new System.EventHandler(this.fromIP2_ValueChanged);
+            this.fromIP2.Enter += new System.EventHandler(this.fromIP2_Enter);
             // 
             // fromIP1
             // 
@@ -208,6 +240,9 @@
             this.fromIP1.Name = "fromIP1";
             this.fromIP1.Size = new System.Drawing.Size(65, 20);
             this.fromIP1.TabIndex = 2;
+            this.fromIP1.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.fromIP1.ValueChanged += new System.EventHandler(this.fromIP1_ValueChanged);
+            this.fromIP1.Enter += new System.EventHandler(this.fromIP1_Enter);
             // 
             // fromIP0
             // 
@@ -220,6 +255,9 @@
             this.fromIP0.Name = "fromIP0";
             this.fromIP0.Size = new System.Drawing.Size(65, 20);
             this.fromIP0.TabIndex = 3;
+            this.fromIP0.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.fromIP0.ValueChanged += new System.EventHandler(this.fromIP0_ValueChanged);
+            this.fromIP0.Enter += new System.EventHandler(this.fromIP0_Enter);
             // 
             // label1
             // 
@@ -229,11 +267,11 @@
             this.label1.Size = new System.Drawing.Size(54, 13);
             this.label1.TabIndex = 4;
             this.label1.Text = "--Start IP--";
+            this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // flowLayoutPanel4
             // 
             this.flowLayoutPanel4.Controls.Add(this.scanButton);
-            this.flowLayoutPanel4.Controls.Add(this.testButton);
             this.flowLayoutPanel4.Dock = System.Windows.Forms.DockStyle.Fill;
             this.flowLayoutPanel4.FlowDirection = System.Windows.Forms.FlowDirection.TopDown;
             this.flowLayoutPanel4.Location = new System.Drawing.Point(3, 198);
@@ -251,27 +289,25 @@
             this.scanButton.UseVisualStyleBackColor = true;
             this.scanButton.Click += new System.EventHandler(this.scanButton_Click);
             // 
-            // testButton
+            // saveFileDialog1
             // 
-            this.testButton.Location = new System.Drawing.Point(3, 32);
-            this.testButton.Name = "testButton";
-            this.testButton.Size = new System.Drawing.Size(75, 23);
-            this.testButton.TabIndex = 0;
-            this.testButton.Text = "Test IP Range";
-            this.testButton.UseVisualStyleBackColor = true;
-            this.testButton.Click += new System.EventHandler(this.testButton_Click);
+            this.saveFileDialog1.Filter = "Text files (*.txt)|*.txt|All files (*.*)|*.*";
             // 
-            // Form1
+            // MainGUI
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(284, 261);
             this.Controls.Add(this.tableLayoutPanel1);
-            this.Name = "Form1";
+            this.MaximumSize = new System.Drawing.Size(300, 300);
+            this.MinimumSize = new System.Drawing.Size(300, 300);
+            this.Name = "MainGUI";
             this.Text = "IPRangeScanner";
             this.tableLayoutPanel1.ResumeLayout(false);
             this.flowLayoutPanel3.ResumeLayout(false);
             this.flowLayoutPanel3.PerformLayout();
+            this.flowLayoutPanel2.ResumeLayout(false);
+            this.flowLayoutPanel2.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.toIP3)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.toIP2)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.toIP1)).EndInit();
@@ -287,12 +323,14 @@
 
         }
 
+        
+
+        
+
         #endregion
 
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
         private System.Windows.Forms.FlowLayoutPanel flowLayoutPanel3;
-        private System.Windows.Forms.NumericUpDown toIP3;
-        private System.Windows.Forms.NumericUpDown toIP2;
         private System.Windows.Forms.NumericUpDown toIP1;
         private System.Windows.Forms.NumericUpDown toIP0;
         private System.Windows.Forms.FlowLayoutPanel flowLayoutPanel2;
@@ -303,10 +341,13 @@
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.FlowLayoutPanel flowLayoutPanel4;
         private System.Windows.Forms.Button scanButton;
-        private System.Windows.Forms.Button testButton;
         public System.Windows.Forms.NumericUpDown fromIP3;
         public System.Windows.Forms.NumericUpDown fromIP0;
         private System.Windows.Forms.SaveFileDialog saveFileDialog1;
+        private System.Windows.Forms.ProgressBar progressBar1;
+        private System.Windows.Forms.NumericUpDown toIP3;
+        private System.Windows.Forms.NumericUpDown toIP2;
+        private System.Windows.Forms.Label currentIPLabel;
     }
 }
 
