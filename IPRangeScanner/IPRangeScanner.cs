@@ -56,14 +56,23 @@ namespace IPRangeScanner
         {
             Byte[] startIP = startRange.GetAddressBytes();
             Byte[] endIP = endRange.GetAddressBytes();
+            short[] endBuff = new short[4];
             int result = 0;
             Array.Reverse(startIP);
             Array.Reverse(endIP);
-            // Treat each byte as a base 255 number
-            for(int b = 0, n = startIP.Length; b < n; b++)
-            {
-                result += (int)((endIP[b] - startIP[b]) * Math.Pow(255, b));
-            }
+            // Copy endIP into endBuff
+            for (int i = 0, n = endIP.Length; i < n; i++)
+                endBuff[i] = endIP[i];
+                // Treat each byte as a base 256 number
+                for (int b = 0, n = startIP.Length; b < n; b++)
+                {
+                    if (endBuff[b] < startIP[b])
+                    {
+                        endBuff[b] += 255;
+                        endBuff[b + 1] -= 1;
+                    }
+                    result += (int)((endBuff[b] - startIP[b]) * Math.Pow(256, b));
+                }
             Length = ++result;
         }
         public override string ToString()
@@ -93,7 +102,7 @@ namespace IPRangeScanner
             Byte[] endIP = endRange.GetAddressBytes();
             Byte[] originalEndIP = endRange.GetAddressBytes();
             IPAddress currIP;
-            setRangeLength();
+            //setRangeLength();
             long currAddress;
             int loc = 0;
             for (int i = startIP[0]; i <= endIP[0]; i++ ) 
