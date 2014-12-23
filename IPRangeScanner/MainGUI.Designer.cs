@@ -139,6 +139,7 @@
             this.toIP3.Size = new System.Drawing.Size(55, 20);
             this.toIP3.TabIndex = 1;
             this.toIP3.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.toIP3.Enter += new System.EventHandler(this.toIP3_Enter);
             // 
             // toIP2
             // 
@@ -152,6 +153,7 @@
             this.toIP2.Size = new System.Drawing.Size(65, 20);
             this.toIP2.TabIndex = 2;
             this.toIP2.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.toIP2.Enter += new System.EventHandler(this.toIP2_Enter);
             // 
             // toIP1
             // 
