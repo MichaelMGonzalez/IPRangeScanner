@@ -75,6 +75,7 @@ namespace IPRangeScanner
             buildScanList();
             if(scanner.Length > 0 && saveFileDialog1.ShowDialog() == DialogResult.OK)
             {
+                progressBar1.Maximum = scanner.Length + 1;      
                 IPRangeWriter writer = new IPRangeWriter(scanner);
                 writer.createTempFile(saveFileDialog1.FileName);
                 Task scan = scanner.buildIPTableAsync(updateProgressBar, updateIPLabel);
@@ -112,7 +113,7 @@ namespace IPRangeScanner
                                                         (uint)fromIP3.Value);
             scanner.setStartIP(start);
             scanner.setEndIP(end);
-            progressBar1.Maximum = scanner.Length + 1;      
+            
             Debug.Write(scanner.ToString() + "\n");
         }
         private void fromIP3_ValueChanged(object sender, EventArgs e)
