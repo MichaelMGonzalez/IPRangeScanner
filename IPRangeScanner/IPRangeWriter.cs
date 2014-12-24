@@ -45,6 +45,11 @@ namespace IPRangeScanner
             {
                 outfile.Write(sb.ToString());
             }
+            // If there's a temp file, then delete it.
+            if( scanner.tempfile != null )
+            {
+                File.Delete(scanner.tempfile);
+            }
 
         }
         // This method writes each HTML file to a directory.
