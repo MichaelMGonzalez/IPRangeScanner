@@ -85,7 +85,7 @@ namespace IPRangeScanner
                 updateProgressBar(0);
                 currentIPLabel.Text = "Current IP: N/A";
                 currentIPLabel.Refresh();
-                MessageBox.Show("Scan complete!\nNumber of IPs Found: " + scanner.ipTable.Count);
+                MessageBox.Show("Scan complete!\nNumber of " + numberOfIPs.Text);
             }
             else if(scanner.Length <= 0)
                 MessageBox.Show("Invalid Range");
